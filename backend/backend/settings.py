@@ -127,6 +127,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_DIRS = [
+    BASE_DIR / "static",
+    "/assets/",
+    "/frontend/src/"
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny']
 }

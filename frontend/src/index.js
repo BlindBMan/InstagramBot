@@ -3,10 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Home from "./components/home/home";
+import ScriptTag from 'react-script-tag'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Intro from "./components/intro/intro";
+import Pricings from "./components/pricings/pricings";
+import Footer from "./components/footer/footer";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Home />
+    <Intro />
+    <Pricings />
+    <Footer />
+    {/*<ScriptTag type={'text/javascript'} src={'./assets/js/main.js'} />*/}
   </React.StrictMode>,
   document.getElementById('root')
 );
