@@ -138,8 +138,7 @@ STATIC_URL = '/static/'
 STATIC_DIRS = [
     os.path.join(BASE_DIR, 'build'),
     BASE_DIR / "static",
-    "/assets/",
-    "/frontend/src/"
+    os.path.join(BASE_DIR, "/frontend/src/assets")
 ]
 
 REST_FRAMEWORK = {
