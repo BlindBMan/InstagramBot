@@ -1,20 +1,39 @@
-from django.shortcuts import render
-# from rest_framework import viewsets
-from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import permissions, status
 from rest_framework.response import Response
-from .serializer import ReuserSerializer
-from .models import Reuser
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializer import MyTokenObtainPairSerializer, ReuserSerializer
 
 
-class ReuserView(APIView):
-    serializer_class = ReuserSerializer
+class ObtainTokenPairWithColorView(TokenObtainPairView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = MyTokenObtainPairSerializer
 
-    def get(self, request):
-        detail = [{"name": reuser.user.username} for reuser in Reuser.objects.all()]
-        return Response(detail)
+
+class ReuserCreate(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
+
+    def post(self, request, format=None):
+        serializer = ReuserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.data
+            return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutTokenView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = ()
 
     def post(self, request):
-        serializer = ReuserSerializer(data= request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+        try:
+            refresh_token = request.data['refresh_token']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
