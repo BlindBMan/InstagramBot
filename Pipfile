@@ -9,6 +9,11 @@ djangorestframework = "*"
 django-cors-headers = "*"
 selenium = "*"
 undetected-chromedriver = "*"
+djangorestframework-simplejwt = "*"
+stripe = "*"
+dj-stripe = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 

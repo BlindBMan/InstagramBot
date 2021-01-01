@@ -2,4 +2,8 @@ from django.contrib import admin
 from .models import Reuser
 
 
-admin.site.register(Reuser)
+class ReuserAdmin(admin.ModelAdmin):
+    model = Reuser
+
+
+admin.site.register(Reuser, ReuserAdmin)

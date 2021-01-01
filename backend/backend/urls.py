@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from reuser.views import ReuserView
 
 
 # router = routers.DefaultRouter()
@@ -24,5 +23,7 @@ from reuser.views import ReuserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', ReuserView.as_view(), name="reuser"),
+    path('api/', include('reuser.urls')),
+    path('stripe/', include('djstripe.urls', namespace='djstripe')),
+    path('', include('frontend.urls'))
 ]
