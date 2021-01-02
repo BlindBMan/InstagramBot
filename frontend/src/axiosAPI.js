@@ -3,10 +3,9 @@ import getCookie from "./components/axiosCSRF";
 
 const csrf_token = getCookie('csrftoken')
 const baseUrl = 'https://insta-bot1.herokuapp.com/api'
-const port = process.env.PORT
-console.log(port)
+// const port = process.env.PORT
+// console.log(port)
 export const axiosInstance = axios.create({
-    baseURL: '',
     timeout: 10000,
     headers: {
         'Authorization': "JWT " + localStorage.getItem('access_token'),
