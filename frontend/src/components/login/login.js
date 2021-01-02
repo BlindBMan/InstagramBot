@@ -25,7 +25,6 @@ export default function Login(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
         // axiosInstance.defaults.xsrfHeaderName = 'X-CSRFToken'
-        axiosInstance.defaults.baseURL = 'https://insta-bot1.herokuapp.com'
         axiosInstance.post('/api/token/obtain/', {
             username: state.username,
             password: state.password
