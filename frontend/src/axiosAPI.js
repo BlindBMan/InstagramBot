@@ -3,8 +3,8 @@ import getCookie from "./components/axiosCSRF";
 
 const csrf_token = getCookie('csrftoken')
 const baseUrl = 'https://insta-bot1.herokuapp.com/api'
-// const port = process.env.PORT
-// console.log(port)
+
+
 export const axiosInstance = axios.create({
     timeout: 10000,
     headers: {
@@ -20,7 +20,7 @@ axiosInstance.interceptors.response.use(
     error => {
         const originalRequest = error.config
 
-        if (error.response.status === 401 && originalRequest.url === baseUrl + '/token/refresh/') {
+        if (error.response.status === 401 && originalRequest.url === baseUrl + 'api/token/refresh/') {
             window.location.href = '/login/'
             return Promise.reject(error)
         }
