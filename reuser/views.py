@@ -7,7 +7,7 @@ from .serializer import MyTokenObtainPairSerializer, ReuserSerializer
 
 
 class ObtainTokenPairWithColorView(TokenObtainPairView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
 
 
