@@ -28,7 +28,7 @@ SECRET_KEY = '$i9hqx$n6bb(zrx=5)aaj0g!6i5t!%!-_meqks%vvii^_qysq$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://insta-bot1.herokuapp.com/']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
