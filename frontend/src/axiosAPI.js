@@ -2,7 +2,7 @@ import axios from 'axios'
 import getCookie from "./components/axiosCSRF";
 
 const csrf_token = getCookie('csrftoken')
-const baseUrl = 'http://127.0.0.1:8000/api/'
+const baseUrl = 'https://insta-bot1.herokuapp.com/api/'
 
 export const axiosInstance = axios.create({
     baseURL: baseUrl,
