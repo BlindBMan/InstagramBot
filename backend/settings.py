@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
-import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -180,5 +179,3 @@ STRIPE_LIVE_MODE = False  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
 DJSTRIPE_USE_NATIVE_JSONFIELD = False
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
-
-django_heroku.settings(locals())
