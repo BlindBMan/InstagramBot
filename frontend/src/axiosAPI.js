@@ -5,7 +5,7 @@ const csrf_token = getCookie('csrftoken')
 const baseUrl = 'https://insta-bot1.herokuapp.com/api'
 
 export const axiosInstance = axios.create({
-    baseURL: 'https://insta-bot1.herokuapp.com/api',
+    // baseURL: 'https://insta-bot1.herokuapp.com/api',
     timeout: 5000,
     headers: {
         'Authorization': "JWT " + localStorage.getItem('access_token'),
@@ -20,7 +20,7 @@ axiosInstance.interceptors.response.use(
     error => {
         const originalRequest = error.config
 
-        if (error.response.status === 401 && originalRequest.url === baseUrl + 'token/refresh/') {
+        if (error.response.status === 401 && originalRequest.url === baseUrl + '/token/refresh/') {
             window.location.href = '/login/'
             return Promise.reject(error)
         }
@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
 
                 if (tokenParts.exp > now) {
                     return axiosInstance
-                        .post('/token/refresh/', {refresh: refreshToken})
+                        .post('/api/token/refresh/', {refresh: refreshToken})
                         .then((response) => {
 
                             localStorage.setItem('access_token', response.data.access);

@@ -27,11 +27,11 @@ export default function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axiosInstance.defaults.xsrfHeaderName = 'X-CSRFToken'
+        // axiosInstance.defaults.xsrfHeaderName = 'X-CSRFToken'
         state.errors = {}
 
         if (state.password === state.confPassword) {
-            axiosInstance.post('/user/create/', {
+            axiosInstance.post('/api/user/create/', {
                 username: state.username,
                 email: state.email,
                 password: state.password
