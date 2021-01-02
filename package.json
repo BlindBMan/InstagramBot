@@ -28,9 +28,7 @@
     "webpack-cli": "^4.3.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
-    "postinstall": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": "10.16.0",
