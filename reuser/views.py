@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializer import MyTokenObtainPairSerializer, ReuserSerializer
-from static import bot
+from static import test
 import braintree
 from worker import conn
 from rq import Queue
@@ -67,10 +67,12 @@ class BotView(APIView):
                 "mainpass": request.data['main_pass']
             }
             print(json)
-            result = q.enqueue(bot.main, request.data['main_acc'], request.data['main_pass'],
-                               request.data['acc_list'], request.data['comm_list'])
+            # result = q.enqueue(bot.main, request.data['main_acc'], request.data['main_pass'],
+            #                    request.data['acc_list'], request.data['comm_list'])
             # bot.main(request.data['main_acc'], request.data['main_pass'],
             #          request.data['acc_list'], request.data['comm_list'])
+
+            result = q.enqueue(test.main, 4)
 
             return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
