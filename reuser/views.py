@@ -10,6 +10,8 @@ from worker import conn
 from rq import Queue
 
 
+q = Queue(connection=conn)
+
 gateway = braintree.BraintreeGateway(
     braintree.Configuration(
         braintree.Environment.Sandbox,
@@ -65,7 +67,6 @@ class BotView(APIView):
                 "mainpass": request.data['main_pass']
             }
             print(json)
-            q = Queue(connection=conn)
             result = q.enqueue(bot.main, request.data['main_acc'], request.data['main_pass'],
                                request.data['acc_list'], request.data['comm_list'])
             # bot.main(request.data['main_acc'], request.data['main_pass'],
