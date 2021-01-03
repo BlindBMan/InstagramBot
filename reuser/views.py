@@ -67,8 +67,17 @@ class BotView(APIView):
                 "mainpass": request.data['main_pass']
             }
             print(json)
-            result = q.enqueue(bot.main, request.data['main_acc'], request.data['main_pass'],
-                               request.data['acc_list'], request.data['comm_list'])
+            acc_lst = request.data['acc_list']
+            comm_lst = request.data['comm_list']
+
+            if len(acc_lst) > len(comm_lst):
+                diff = len(acc_lst) - len(comm_lst)
+                comm_lst.extend(comm_lst[:diff])
+
+            for i in range(0, len(acc_lst), 2):
+                q.enqueue(bot.main, request.data['main_acc'], request.data['main_pass'],
+                          acc_lst[i:i+2], comm_lst[i:i+2])
+
             # bot.main(request.data['main_acc'], request.data['main_pass'],
             #          request.data['acc_list'], request.data['comm_list'])
 

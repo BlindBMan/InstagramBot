@@ -11,7 +11,7 @@ def wait_random(min_t, max_t):
 
 def write(placeholder, text):
     for i in text:
-        time.sleep(random.randrange(1, 20) / 10)
+        time.sleep(random.randrange(1, 15) / 10)
         placeholder.send_keys(i)
 
 
@@ -30,13 +30,14 @@ def main(username, password, users_list, comments_list):
     print("got after")
     # driver = uc.Chrome()
     driver.get(base_url)
-    wait_random(4, 10)
+    wait_random(3, 6)
 
     try:
         cookie_div = driver.find_element_by_class_name("mt3GC")
         cookie_btn = cookie_div.find_elements_by_tag_name('button')[0]
-        wait_random(3, 10)
+        wait_random(3, 6)
         cookie_btn.click()
+        print("got after cookie btn")
     except NoSuchElementException as e:
         pass
 
@@ -45,64 +46,70 @@ def main(username, password, users_list, comments_list):
     form_pass = login_form.find_elements_by_tag_name('label')[1]
 
     write(form_usr, username)
-    wait_random(2, 8)
+    wait_random(1, 3)
+    print("got after username")
 
     write(form_pass, password)
-    wait_random(1, 5)
+    wait_random(1, 4)
+    print("got after password")
 
     form_pass.send_keys(Keys.ENTER)
-    wait_random(4, 12)
+    wait_random(4, 8)
 
     try:
         save_login = driver.find_element_by_class_name("cmbtv")
         save_login.click()
-        wait_random(2, 8)
+        wait_random(2, 4)
+        print("got after savelogin")
     except NoSuchElementException:
         pass
 
     try:
         notifications_div = driver.find_element_by_class_name("mt3GC")
         notifications_btn = notifications_div.find_elements_by_tag_name('button')[1]
-        wait_random(2, 8)
+        wait_random(2, 4)
         notifications_btn.click()
+        print("got after notifbtn")
     except NoSuchElementException:
         pass
 
-    wait_random(10, 20)
+    wait_random(2, 7)
 
-    if len(users_list) > len(comments_list):
-        diff = len(users_lst) - len(comm_lst)
-        comm_lst.extend(comm_lst[:diff])
+    # if len(users_list) > len(comments_list):
+    #     diff = len(users_list) - len(comments_list)
+    #     comments_list.extend(comments_list[:diff])
 
     for user, comm in zip(users_list, comments_list):
         try:
             driver.get(base_url + '/' + user + '/')
-            wait_random(2, 7)
+            wait_random(2, 5)
 
             article_holder = driver.find_element_by_class_name('ySN3v')
             first_photo_link = article_holder.find_element_by_tag_name('a')
             driver.get(first_photo_link.get_attribute('href'))
-            wait_random(3, 8)
+            wait_random(3, 5)
 
             like_div = driver.find_element_by_class_name('eo2As')
             like_btn, comm_btn = like_div.find_elements_by_tag_name('button')[:2]
             like_btn.click()
-            wait_random(2, 7)
+            wait_random(2, 6)
+            print("got after like")
 
             comm_btn.click()
-            wait_random(1, 3)
+            wait_random(1, 2)
 
             comm_form = driver.find_element_by_class_name('RxpZH').find_element_by_tag_name('form')
             comm_text = comm_form.find_element_by_tag_name('textarea')
 
             write(comm_text, comm)
             comm_text.send_keys(Keys.ENTER)
-            wait_random(3, 5)
+            wait_random(2, 4)
+            print("got after user")
         except NoSuchElementException:
             pass
         except WebDriverException:
             pass
-        wait_random(60, 400)
+        wait_random(5, 10)
 
     driver.close()
 
