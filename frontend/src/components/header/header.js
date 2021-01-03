@@ -14,6 +14,7 @@ export default function Header(props) {
             localStorage.removeItem('refresh_token')
             axiosInstance.defaults.headers['Authorization'] = null
             props.onLogOut()
+            window.location.href = '/'
         }).catch(e => {
             console.log(e)
         })
@@ -24,7 +25,11 @@ export default function Header(props) {
             <Proloader />
                             {/*// <!-- Header Start -->*/}
             <header>
-                <div className="header-area header-transparent">
+                <div className="header-area header-transparent"
+                     style={{
+                         backgroundColor: props.background_color
+                     }}
+                >
                     <div className="main-header ">
                         <div className="header-bottom  header-sticky">
                             <div className="container-fluid">
@@ -49,12 +54,12 @@ export default function Header(props) {
                                                         {/*        <li><a href="elements.html">Element</a></li>*/}
                                                         {/*    </ul>*/}
                                                         {/*</li>*/}
-                                                        <li><a href="contact.html">Contact</a></li>
+                                                        <li><a href="#">Contact</a></li>
                                                         {/*// <!-- Button -->*/}
                                                         {
                                                             props.isLogged === false &&
 
-                                                            <li className="button-header margin-left ">
+                                                            <li className="button-header margin-left">
                                                                 <Link
                                                                     to={'/register'} className="btn">Sign Up
                                                                 </Link>
@@ -63,9 +68,21 @@ export default function Header(props) {
                                                             props.isLogged === false &&
 
                                                             <li className="button-header">
-                                                                <Link to={'/login'} className="btn3">Sign In</Link>
+                                                                <Link to={'/login'} className="btn3">
+                                                                    Sign In
+                                                                </Link>
                                                             </li>
                                                         }
+                                                        {
+                                                            props.isLogged &&
+
+                                                            <li className="button-header margin-left">
+                                                                <Link to={'/dashboard'}  className="btn">
+                                                                    Dashboard
+                                                                </Link>
+                                                            </li>
+                                                        }
+
                                                         {
                                                             props.isLogged &&
 

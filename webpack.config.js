@@ -8,7 +8,8 @@ module.exports = {
         // options related to how webpack emits results
 
         // where compiled files go
-        path: path.resolve(__dirname, "/frontend/static/frontend/public/"),
+        path: path.resolve(__dirname, "frontend/static/frontend/public/"),
+        // path: path.resolve(__dirname, "backend/public/"),
 
         // 127.0.0.1/static/frontend/public/ where files are served from
         publicPath: "/static/frontend/public/",

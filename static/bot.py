@@ -1,6 +1,5 @@
 import undetected_chromedriver as uc
 from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 import time
 import random
@@ -22,11 +21,12 @@ def main(username, password, users_list, comments_list):
     # with open('./lists/usragents.txt') as f:
     #     USER_AGENT_PARTS = f.readlines()
 
-    # opts = Options()
-    # opts.add_argument(f'user-agent={random.choice(USER_AGENT_PARTS)}')
+    # opts = uc.ChromeOptions()
+    # opts.add_argument('--headless')
 
     base_url = 'https://www.instagram.com'
 
+    # driver = uc.Chrome(options=opts)
     driver = uc.Chrome()
     driver.get(base_url)
     wait_random(4, 10)
@@ -98,9 +98,9 @@ def main(username, password, users_list, comments_list):
             comm_text.send_keys(Keys.ENTER)
             wait_random(3, 5)
         except NoSuchElementException:
-            continue
+            pass
         except WebDriverException:
-            continue
+            pass
         wait_random(60, 400)
 
     driver.close()

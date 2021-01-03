@@ -5,24 +5,26 @@ import { Switch, Route } from "react-router-dom";
 import Signup from "./signup/signup";
 import Home from "./home/home";
 import Login from "./login/login";
+import Dashboard from "./dashboard/dashboard";
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
 
     function changeLoginState() {
         setLoggedIn(prevValue => !prevValue)
-        console.log(loggedIn)
     }
 
     useEffect(() => {
         let value = localStorage.getItem('access_token') !== null
-        console.log(value)
-
         setLoggedIn(value)
     }, [])
 
     return (
           <Switch>
+
+              <Route path={'/dashboard/'}>
+                  <Dashboard isLoggedIn={loggedIn} onLoginChange={changeLoginState} />
+              </Route>
 
             <Route path={'/register/'}>
                 <Signup />
