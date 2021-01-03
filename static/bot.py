@@ -21,13 +21,14 @@ def main(username, password, users_list, comments_list):
     # with open('./lists/usragents.txt') as f:
     #     USER_AGENT_PARTS = f.readlines()
 
-    # opts = uc.ChromeOptions()
-    # opts.add_argument('--headless')
+    opts = uc.ChromeOptions()
+    opts.add_argument('--headless')
 
     base_url = 'https://www.instagram.com'
-
-    # driver = uc.Chrome(options=opts)
-    driver = uc.Chrome()
+    print("got before")
+    driver = uc.Chrome(options=opts)
+    print("got after")
+    # driver = uc.Chrome()
     driver.get(base_url)
     wait_random(4, 10)
 
