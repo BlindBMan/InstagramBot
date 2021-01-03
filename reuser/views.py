@@ -6,6 +6,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializer import MyTokenObtainPairSerializer, ReuserSerializer
 from static import bot
 import braintree
+from worker import conn
+from rq import Queue
 
 
 gateway = braintree.BraintreeGateway(
@@ -63,9 +65,12 @@ class BotView(APIView):
                 "mainpass": request.data['main_pass']
             }
             print(json)
-            bot.main(request.data['main_acc'], request.data['main_pass'],
-                     request.data['acc_list'], request.data['comm_list'])
+            q = Queue(connection=conn)
+            result = q.enqueue(bot.main, request.data['main_acc'], request.data['main_pass'],
+                               request.data['acc_list'], request.data['comm_list'])
+            # bot.main(request.data['main_acc'], request.data['main_pass'],
+            #          request.data['acc_list'], request.data['comm_list'])
 
-            return Response(status=status.HTTP_200_OK)
+            return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)

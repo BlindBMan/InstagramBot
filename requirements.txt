@@ -22,3 +22,5 @@ undetected-chromedriver==1.5.2
 urllib3==1.26.2
 whitenoise==5.2.0
 braintree>=4.5.0
+rq>=1.7.0
+redis>=3.5.3
