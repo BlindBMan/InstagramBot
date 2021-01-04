@@ -11,7 +11,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['username'] = user.username
-        token['fav_food'] = user.fav_food
+        token['expiry_date'] = user.subscription_expiry_date.isoformat()
         return token
 
 
