@@ -1,11 +1,13 @@
 import '../App.css';
 import React, {useState, useEffect} from "react";
-import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import { Switch, Route } from "react-router-dom";
 import Signup from "./signup/signup";
 import Home from "./home/home";
 import Login from "./login/login";
 import Dashboard from "./dashboard/dashboard";
+import Subscription from "./dashboard/subscription";
+import {axiosInstance} from "../axiosAPI";
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -22,8 +24,15 @@ export default function App() {
     return (
           <Switch>
 
+              <Route path={'/subscription/'}>
+                  <Subscription />
+              </Route>
+
               <Route path={'/dashboard/'}>
-                  <Dashboard isLoggedIn={loggedIn} onLoginChange={changeLoginState} />
+                  <Dashboard
+                      isLoggedIn={loggedIn}
+                      onLoginChange={changeLoginState}
+                  />
               </Route>
 
             <Route path={'/register/'}>

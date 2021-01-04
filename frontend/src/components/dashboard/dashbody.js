@@ -4,7 +4,7 @@ import {axiosInstance} from "../../axiosAPI";
 import $ from 'jquery'
 
 
-export default function DashBody() {
+export default function DashBody(props) {
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -16,7 +16,7 @@ export default function DashBody() {
         if (acc_lst[acc_lst.length - 1] === "")
             acc_lst = acc_lst.slice(0, -1)
 
-        let comm_lst = $('#comments').val().split(/[\n, ]+/)
+        let comm_lst = $('#comments').val().split(/[\n]+/)
         if (comm_lst[comm_lst.length - 1] === "")
             comm_lst = comm_lst.slice(0, -1)
 
@@ -57,6 +57,7 @@ export default function DashBody() {
                         }}
                     >
                         <h1 className="page-header">Dashboard</h1>
+                        <p>Subscription end on: {props.expiryDate}</p>
                     </div>
                 </div>
 

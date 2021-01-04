@@ -15,7 +15,7 @@ module.exports = {
         publicPath: "/static/frontend/public/",
         filename: 'main.js',  // the same one we import in index.html
     },
-    target: 'node',
+    // target: 'node',
     // externals: [nodeExternals()],
     module: {
         // configuration regarding modules

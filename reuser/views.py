@@ -8,6 +8,8 @@ from static import bot
 import braintree
 from worker import conn
 from rq import Queue
+import datetime
+from .models import Reuser
 
 
 q = Queue(connection=conn)
@@ -39,6 +41,18 @@ class ReuserCreate(APIView):
                 json = serializer.data
             return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateUserView(APIView):
+    def post(self, request):
+        try:
+            new_date = datetime.date.fromisoformat(request.data['new_date'])
+            user = Reuser.objects.get(username=request.data['username'])
+            user.subscription_expiry_date = new_date + datetime.timedelta(days=30)
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutTokenView(APIView):
@@ -84,5 +98,30 @@ class BotView(APIView):
             # result = q.enqueue(test.main, 4)
 
             return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class GenerateToken(APIView):
+    def get(self, request):
+        token = gateway.client_token.generate()
+        return Response(token, status=status.HTTP_200_OK)
+
+
+class CreatePurchase(APIView):
+    def post(self, request):
+        try:
+            client_nonce = request.data['nonce']
+            result = gateway.transaction.sale({
+                "amount": "15.00",
+                "payment_method_nonce": client_nonce,
+                "options": {
+                    "submit_for_settlement": True
+                }
+            })
+            if result.is_success:
+                return Response({"result": 'success'}, status=status.HTTP_200_OK)
+            else:
+                return Response({"result": 'failed'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
