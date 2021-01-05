@@ -48,6 +48,7 @@ export default function Signup() {
                 ...prevState,
                 passMatch: false
             }))
+            alert("Passwords dont match")
         }
     }
 
@@ -111,7 +112,9 @@ export default function Signup() {
                                 value={state.username}
                                 onChange={handleChange}
                             />
-                            {state.errors.username ? state.errors.username : null}
+                            {state.errors.username ?
+                                <p style={{color: "#fff"}}>state.errors.username</p> :
+                                null}
                         </div>
                         <div className="form-input">
                             <label htmlFor="email">Email Address</label>
@@ -123,7 +126,7 @@ export default function Signup() {
                                 value={state.email}
                                 onChange={handleChange}
                             />
-                            {state.errors.email ? state.errors.email : null}
+                            {state.errors.email ? <p style={{color: "#fff"}}>state.errors.email</p> : null}
 
                         </div>
                         <div className="form-input">
@@ -136,7 +139,7 @@ export default function Signup() {
                                 value={state.password}
                                 onChange={handleChange}
                             />
-                            {state.errors.password ? state.errors.password : null}
+                            {state.errors.password ? <p style={{color: "#fff"}}>state.errors.password</p> : null}
                         </div>
                         <div className="form-input">
                             <label htmlFor="confPassword">Confirm Password</label>
