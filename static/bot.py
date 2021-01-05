@@ -23,12 +23,17 @@ def main(username, password, users_list, comments_list):
 
     opts = uc.ChromeOptions()
     opts.add_argument('--headless')
+    opts.add_argument('--disable-gpu')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
+    opts.add_argument('--remote-debugging-port=9222')
 
     base_url = 'https://www.instagram.com'
     print("got before")
     driver = uc.Chrome(options=opts)
     print("got after")
     # driver = uc.Chrome()
+    opts.add_argument("--example-flag")
     driver.get(base_url)
     wait_random(3, 6)
 
