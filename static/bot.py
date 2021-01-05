@@ -96,7 +96,12 @@ def main(username, password, users_list, comments_list):
 
             like_div = driver.find_element_by_class_name('eo2As')
             like_btn, comm_btn = like_div.find_elements_by_tag_name('button')[:2]
-            like_btn.click()
+            like_svg = like_btn.find_element_by_tag_name('svg')
+            print(like_svg.get_attribute('fill'))
+            if like_svg.get_attribute('fill') != '#ed4956':
+                like_svg.click()
+                print('liked')
+
             wait_random(2, 6)
             print("got after like")
 
