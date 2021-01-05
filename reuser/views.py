@@ -56,8 +56,8 @@ class UpdateUserView(APIView):
 
 
 class LogoutTokenView(APIView):
-    permission_classes = (permissions.AllowAny,)
-    authentication_classes = ()
+    # permission_classes = (permissions.AllowAny,)
+    authentication_classes = []
 
     def post(self, request):
         try:

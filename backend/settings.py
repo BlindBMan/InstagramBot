@@ -26,7 +26,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 SECRET_KEY = '$i9hqx$n6bb(zrx=5)aaj0g!6i5t!%!-_meqks%vvii^_qysq$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
