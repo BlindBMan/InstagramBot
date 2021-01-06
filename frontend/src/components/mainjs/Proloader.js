@@ -17,7 +17,8 @@ export default function Proloader() {
                 <div className="preloader-inner position-relative">
                     <div className="preloader-circle"></div>
                     <div className="preloader-img pere-text">
-                        <img src={loder} alt="" />
+                        {/*<img src={loder} alt="" />*/}
+                        P&N ENGAGE
                     </div>
                 </div>
             </div>

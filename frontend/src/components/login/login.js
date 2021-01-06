@@ -35,6 +35,7 @@ export default function Login(props) {
             props.onLoginChange()
             window.location.href = '/'
         }).catch(error => {
+            alert('username or password wrong')
             throw error
         })
 

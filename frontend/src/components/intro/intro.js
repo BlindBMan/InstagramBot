@@ -82,12 +82,9 @@ export default function Intro() {
                                 <div className="row align-items-center justify-content-between">
                                     <div className="col-xl-5 col-lg-5 col-md-9 ">
                                         <div className="hero__caption">
-                                            <span data-animation="fadeInLeft" data-delay=".3s">Best Domain & hosting service provider</span>
-                                            <h1 data-animation="fadeInLeft" data-delay=".6s ">Powerful web hosting</h1>
-                                            <p data-animation="fadeInLeft" data-delay=".8s">Supercharge your WordPress
-                                                hosting with detailed
-                                                website analytics, marketing tools, security, and data
-                                                backups all in one place.</p>
+                                            <span data-animation="fadeInLeft" data-delay=".3s">For all you instagram gigs.</span>
+                                            <h1 data-animation="fadeInLeft" data-delay=".6s ">Upscale your growth</h1>
+                                            <p data-animation="fadeInLeft" data-delay=".8s">Need an automated system for liking and commenting Instagram post? Our web-integrated sysytem can do all that for you in one simple click. Sit back and let the code do the crunching!</p>
                                             {/*// <!-- Slider btn -->*/}
                                             <div className="slider-btns">
                                                 {/*// <!-- Hero-btn -->*/}
