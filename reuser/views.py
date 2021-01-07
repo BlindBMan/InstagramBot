@@ -10,6 +10,7 @@ from worker import conn
 from rq import Queue
 import datetime
 from .models import Reuser
+from braces.views import CsrfExemptMixin
 
 
 q = Queue(connection=conn)
@@ -55,8 +56,8 @@ class UpdateUserView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class LogoutTokenView(APIView):
-    # permission_classes = (permissions.AllowAny,)
+class LogoutTokenView(CsrfExemptMixin, APIView):
+    permission_classes = (permissions.AllowAny,)
     authentication_classes = []
 
     def post(self, request):

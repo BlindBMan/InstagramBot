@@ -17,6 +17,7 @@ gunicorn = "*"
 braintree = "*"
 rq = "*"
 redis = "*"
+django-braces = "*"
 
 [dev-packages]
 

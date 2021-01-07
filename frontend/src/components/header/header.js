@@ -7,7 +7,7 @@ import {axiosInstance} from "../../axiosAPI";
 
 export default function Header(props) {
     const handleLogout = () => {
-        axiosInstance.post('/blacklist/', {
+        axiosInstance.post('/api/blacklist/', {
             'refresh_token': localStorage.getItem('refresh_token')
         }).then(response => {
             localStorage.removeItem('access_token')
@@ -37,7 +37,18 @@ export default function Header(props) {
                                     {/*// <!-- Logo -->*/}
                                     <div className="col-xl-2 col-lg-2">
                                         <div className="logo">
-                                            <Link to={'/'}><img src={logo} alt="" /></Link>
+                                            <Link to={'/'}>
+                                                {/*<img src={logo} alt="" />*/}
+                                                <p
+                                                    style={{
+                                                        fontSize: '20px',
+                                                        color: 'white',
+                                                        fontWeight: 'bold'
+                                                    }}
+                                                >
+                                                    P&N ENGAGE
+                                                </p>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div className="col-xl-10 col-lg-10">
