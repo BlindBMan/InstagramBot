@@ -4,10 +4,12 @@ import DashBody from "./dashbody";
 import Subscription from "./subscription";
 import {axiosInstance} from "../../axiosAPI";
 import jwt_decode from "jwt-decode";
+import StripePayment from "./stripePayment";
 
 
 export default function Dashboard(props) {
     const [expiryDate, setExpiryDate] = useState("")
+    const [hasSubscribed, setHasSubscribed] = useState(false)
 
     function changeExpiryDate() {
         let curr_date = new Date().toISOString().split('T')[0]
@@ -37,7 +39,22 @@ export default function Dashboard(props) {
         let value = localStorage.getItem('access_token') !== null
         if (value === true) {
             let decoded_token = jwt_decode(localStorage.getItem('access_token'))
-            setExpiryDate(decoded_token['expiry_date'])
+            axiosInstance.post('/api/obtain_expiry_date/',
+                {
+                    username: decoded_token['username']
+                })
+                .then(response => {
+                    setExpiryDate(response.data['exp_date'])
+
+                    let ex_date = new Date(response.data['exp_date'])
+                    let curr_date = new Date()
+
+                    setHasSubscribed(ex_date.getTime() > curr_date.getTime())
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+
         }
     }, [])
 
@@ -48,14 +65,22 @@ export default function Dashboard(props) {
             paddingTop: "6vh"
         }}>
             <Header isLogged={props.isLoggedIn} onLogOut={onChangeLog} background_color={"#000"}/>
-            {checkExpDate() ?
+            {hasSubscribed ?
                 <DashBody
                     expiryDate={expiryDate}
                 /> :
-                <Subscription
-                    expiryDate={expiryDate}
-                    onExpiryChange={changeExpiryDate}
-                />
+                // <Subscription
+                //     expiryDate={expiryDate}
+                //     onExpiryChange={changeExpiryDate}
+                // />
+                <div
+                    style={{
+                        marginTop: '40px'
+                    }}
+                >
+                    <h2>You don't currently have a subscription. Please proceed to checkout!(or just wait 2-3sec)</h2>
+                    <StripePayment />
+                </div>
             }
 
         </div>

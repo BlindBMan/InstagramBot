@@ -8,6 +8,10 @@ import Login from "./login/login";
 import Dashboard from "./dashboard/dashboard";
 import Subscription from "./dashboard/subscription";
 import {axiosInstance} from "../axiosAPI";
+import StripePayment from "./dashboard/stripePayment";
+import Success from "./checkoutPages/success";
+import Failure from "./checkoutPages/failure";
+
 
 export default function App() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -24,9 +28,13 @@ export default function App() {
     return (
           <Switch>
 
-              <Route path={'/subscription/'}>
-                  <Subscription />
+              <Route path={'/stripePayment/'}>
+                  <StripePayment />
               </Route>
+
+              {/*<Route path={'/subscription/'}>*/}
+              {/*    <Subscription />*/}
+              {/*</Route>*/}
 
               <Route path={'/dashboard/'}>
                   <Dashboard
@@ -37,6 +45,20 @@ export default function App() {
 
             <Route path={'/register/'}>
                 <Signup />
+            </Route>
+
+            <Route path={'/success/'}>
+                <Success
+                    isLoggedIn={loggedIn}
+                    onLoginChange={changeLoginState}
+                />
+            </Route>
+
+            <Route path={'/failure/'}>
+                <Failure
+                    isLoggedIn={loggedIn}
+                    onLoginChange={changeLoginState}
+                />
             </Route>
 
             <Route path={'/login/'}>
@@ -50,87 +72,3 @@ export default function App() {
           </Switch>
     )
 }
-
-
-//
-// function App() {
-//   // const [users, setUsers] = useState([])
-//
-//   // useEffect(() => {
-//   //     let data;
-//   //
-//   //     axios.get('/api')
-//   //         .then(res => {
-//   //             data = res.data
-//   //             setUsers(data)
-//   //         })
-//   //         .catch(err => {})
-//   //
-//   // }, [])
-//
-//   return (
-//     <div className="App">
-//         {/*<div>*/}
-//         {/*    {users.map((detail, id) =>  (*/}
-//         {/*             <div key={id}>*/}
-//         {/*                 <div >*/}
-//         {/*                     <div >*/}
-//         {/*                         <footer >--- by*/}
-//         {/*                             <cite title="Source Title">*/}
-//         {/*                                 {detail.name}</cite>*/}
-//         {/*                         </footer>*/}
-//         {/*                     </div>*/}
-//         {/*                 </div>*/}
-//         {/*             </div>*/}
-//         {/*         )*/}
-//         {/*     )}*/}
-//         {/*</div>*/}
-//     </div>
-//   );
-// }
-//
-// export default App;
-//
-// //
-// // class App extends React.Component {
-// //     state = {
-// //         details: [],
-// //     }
-// //
-// //     componentDidMount() {
-// //         let data;
-// //
-// //         axios.get('/api')
-// //             .then(res => {
-// //                 data = res.data;
-// //                 console.log(data)
-// //                 this.setState({
-// //                     details: data
-// //                 });
-// //             })
-// //             .catch(err => {})
-// //
-// //     }
-// //
-// //     render() {
-// //         return(
-// //             <div>
-// //                 {this.state.details.map((detail, id) =>  (
-// //                         <div key={id}>
-// //                             <div >
-// //                                 <div >
-// //                                     <footer >--- by
-// //                                         <cite title="Source Title">
-// //                                             {detail.name}</cite>
-// //                                     </footer>
-// //                                 </div>
-// //                             </div>
-// //                         </div>
-// //                     )
-// //                 )}
-// //             </div>
-// //         )
-// //     }
-// // }
-// //
-// // export default App;

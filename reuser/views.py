@@ -11,6 +11,11 @@ from rq import Queue
 import datetime
 from .models import Reuser
 from braces.views import CsrfExemptMixin
+import stripe
+
+
+stripe.api_key = \
+    'sk_test_51I6g4EAMDRvyRzjWN71NrmPSXPlICBZUAFbo1ZC15YESZKpUsrHK6bdNvs7DgKss0rJgwmmXTB7orVMZ1kK6WNE2002uGML4xU'
 
 
 q = Queue(connection=conn)
@@ -28,6 +33,28 @@ gateway = braintree.BraintreeGateway(
 class ObtainTokenPairWithColorView(TokenObtainPairView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
+
+
+class ObtainExpiryDate(APIView):
+    def post(self, request):
+        try:
+            reuser = Reuser.objects.get(username=request.data['username'])
+            customers_data = stripe.Customer.list(email=reuser.email)['data']
+            if customers_data:
+                customer_id = customers_data[0]['id']
+
+                charges = stripe.Charge.list(customer=customer_id)['data']
+                charges_dates = \
+                    [datetime.datetime.fromtimestamp(charge['created'], datetime.timezone.utc) for charge in charges]
+                charges_dates.sort()
+                most_recent_charge = charges_dates[-1]
+                expiry_date = most_recent_charge + datetime.timedelta(days=30)
+                response = expiry_date.isoformat()
+            else:
+                response = "1066-01-02T21:21:21+00:00"
+            return Response({"exp_date": response}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ReuserCreate(APIView):
@@ -101,6 +128,56 @@ class BotView(APIView):
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreateCheckoutSession(APIView):
+    def post(self, request):
+        try:
+            reuser = Reuser.objects.get(username=request.data['username'])
+
+            customers_data = stripe.Customer.list(email=reuser.email)['data']
+            if customers_data:
+                customer_id = customers_data[0]['id']
+
+                session = stripe.checkout.Session.create(
+                    customer=customer_id,
+                    payment_method_types=['card'],
+                    line_items=[{
+                        'price_data': {
+                            'currency': 'inr',
+                            'product_data': {
+                                'name': 'Instagram Bot',
+                            },
+                            'unit_amount': 110000,
+                        },
+                        'quantity': 1,
+                    }],
+                    mode='payment',
+                    success_url='http://localhost:8000/login/',
+                    cancel_url='http://localhost:8000/cancel/',
+                )
+            else:
+                session = stripe.checkout.Session.create(
+                    customer_email=reuser.email,
+                    payment_method_types=['card'],
+                    line_items=[{
+                        'price_data': {
+                            'currency': 'inr',
+                            'product_data': {
+                                'name': 'Instagram Bot',
+                            },
+                            'unit_amount': 110000,
+                        },
+                        'quantity': 1,
+                    }],
+                    mode='payment',
+                    success_url='http://localhost:8000/login/',
+                    cancel_url='http://localhost:8000/cancel/',
+                )
+
+            return Response(session, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GenerateToken(APIView):

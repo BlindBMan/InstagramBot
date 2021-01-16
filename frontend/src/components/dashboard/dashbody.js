@@ -57,7 +57,7 @@ export default function DashBody(props) {
                         }}
                     >
                         <h1 className="page-header">Dashboard</h1>
-                        <p>Subscription end on: {props.expiryDate}</p>
+                        <p>Subscription end on: {props.expiryDate.split('T')[0]}</p>
                     </div>
                 </div>
 
@@ -129,7 +129,7 @@ export default function DashBody(props) {
                                 {/*        <p className="help-block">Upload only .txt files and place the usernames on separate lines</p>*/}
                                 {/*</div>*/}
                                 <div className="form-group">
-                                    <label>Write the accounts on separate lines please</label>
+                                    <label>Write the accounts on separate lines please (without '@')</label>
                                     <textarea id={'accounts'} className="form-control" rows="3"
                                         placeholder={'insta_acc1\n insta_acc2\n insta_acc3\n etc...'}
                                     />
