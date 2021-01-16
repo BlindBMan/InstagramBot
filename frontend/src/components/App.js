@@ -9,7 +9,7 @@ import Dashboard from "./dashboard/dashboard";
 import Subscription from "./dashboard/subscription";
 import {axiosInstance} from "../axiosAPI";
 import StripePayment from "./dashboard/stripePayment";
-import Success from "./checkoutPages/success";
+// import Success from "./checkoutPages/success";
 import Failure from "./checkoutPages/failure";
 
 
@@ -47,12 +47,12 @@ export default function App() {
                 <Signup />
             </Route>
 
-            <Route path={'/success/'}>
-                <Success
-                    isLoggedIn={loggedIn}
-                    onLoginChange={changeLoginState}
-                />
-            </Route>
+            {/*<Route path={'/success/'}>*/}
+            {/*    <Success*/}
+            {/*        isLoggedIn={loggedIn}*/}
+            {/*        onLoginChange={changeLoginState}*/}
+            {/*    />*/}
+            {/*</Route>*/}
 
             <Route path={'/failure/'}>
                 <Failure

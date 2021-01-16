@@ -154,7 +154,7 @@ class CreateCheckoutSession(APIView):
                     }],
                     mode='payment',
                     success_url='http://localhost:8000/login/',
-                    cancel_url='http://localhost:8000/cancel/',
+                    cancel_url='http://localhost:8000/failure/',
                 )
             else:
                 session = stripe.checkout.Session.create(
@@ -172,7 +172,7 @@ class CreateCheckoutSession(APIView):
                     }],
                     mode='payment',
                     success_url='http://localhost:8000/login/',
-                    cancel_url='http://localhost:8000/cancel/',
+                    cancel_url='http://localhost:8000/failure/',
                 )
 
             return Response(session, status=status.HTTP_200_OK)
