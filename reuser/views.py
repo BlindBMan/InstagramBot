@@ -153,8 +153,8 @@ class CreateCheckoutSession(APIView):
                         'quantity': 1,
                     }],
                     mode='payment',
-                    success_url='http://localhost:8000/login/',
-                    cancel_url='http://localhost:8000/failure/',
+                    success_url='https://insta-bot1.herokuapp.com/login/',
+                    cancel_url='https://insta-bot1.herokuapp.com/failure/',
                 )
             else:
                 session = stripe.checkout.Session.create(
