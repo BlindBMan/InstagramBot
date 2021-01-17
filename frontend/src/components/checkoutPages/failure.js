@@ -13,9 +13,10 @@ export default function Failure(props) {
             <div
                 style={{
                     padding: '20px',
-                    backgroundColor: '#4CAF50',
+                    backgroundColor: '#cf0622',
                     color: 'white',
-                    marginBottom: '15px'
+                    marginBottom: '15px',
+                    marginTop: '40px'
                 }}>
                 Ups, something went wrong.. Contact the staff!
             </div>

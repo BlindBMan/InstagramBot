@@ -171,8 +171,8 @@ class CreateCheckoutSession(APIView):
                         'quantity': 1,
                     }],
                     mode='payment',
-                    success_url='http://localhost:8000/login/',
-                    cancel_url='http://localhost:8000/failure/',
+                    success_url='https://insta-bot1.herokuapp.com/login/',
+                    cancel_url='https://insta-bot1.herokuapp.com/failure/',
                 )
 
             return Response(session, status=status.HTTP_200_OK)
